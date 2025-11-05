@@ -10,12 +10,12 @@ function App() {
 
     if (editIndex !== null) {
       const updated = tasks.map((task, i) =>
-        i === editIndex ? input : task
+        i === editIndex ? { ...task, text: input } : task
       );
       setTasks(updated);
       setEditIndex(null);
     } else {
-      setTasks([...tasks, input]);
+      setTasks([...tasks, { text: input, completed: false }]);
     }
     setInput("");
   };
@@ -26,8 +26,15 @@ function App() {
   };
 
   const handleEdit = (index) => {
-    setInput(tasks[index]);
+    setInput(tasks[index].text);
     setEditIndex(index);
+  };
+
+  const handleToggle = (index) => {
+    const updated = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updated);
   };
 
   return (
@@ -50,13 +57,29 @@ function App() {
         </button>
       </div>
 
-      <ul className="w-72">
+      <ul className="w-80">
         {tasks.map((task, index) => (
           <li
             key={index}
             className="flex justify-between items-center bg-white shadow p-2 mb-2 rounded"
           >
-            <span>{task}</span>
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleToggle(index)}
+              />
+              <span
+                className={`${
+                  task.completed
+                    ? "line-through text-gray-400"
+                    : "text-gray-800"
+                }`}
+              >
+                {task.text}
+              </span>
+            </div>
+
             <div className="space-x-2">
               <button
                 onClick={() => handleEdit(index)}
