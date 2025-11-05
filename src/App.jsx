@@ -53,7 +53,6 @@ function App() {
           ✨ My Stylish To-Do List
         </h1>
 
-        {/* Input and Button */}
         <div className="flex space-x-2 mb-6">
           <input
             type="text"
@@ -70,7 +69,6 @@ function App() {
           </button>
         </div>
 
-        {/* Task List */}
         <ul className="space-y-3">
           {tasks.map((task, index) => (
             <li
