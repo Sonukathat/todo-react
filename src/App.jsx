@@ -6,7 +6,10 @@ function App() {
   const [editIndex, setEditIndex] = useState(null);
 
   const handleAdd = () => {
-    if (input.trim() === "") return;
+    if (input.trim() === "") {
+      alert("⚠️ Please enter a task first!");
+      return;
+    }
 
     if (editIndex !== null) {
       const updated = tasks.map((task, i) =>
